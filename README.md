@@ -4,6 +4,8 @@ by ieaster1 https://github.com/ieaster1
 
 usage: docker logs -t container_name | local-docker-logs
 
+![docker-logs-localtime example](images/docker-logs-localtime_01.png)
+
 ### Install
 
 `wget -O /usr/local/bin/docker-logs-localtime https://raw.githubusercontent.com/ieaster1/docker-logs-localtime/master/docker-logs-localtime && chmod +x /usr/local/bin/docker-logs-localtime`
