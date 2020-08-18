@@ -2,4 +2,4 @@ language: python
 install"
   - pip install requirements.txt
 script:
-  - python -m test.test_dllt_unittest
+  - python3 -m test.test_dllt_unittest
