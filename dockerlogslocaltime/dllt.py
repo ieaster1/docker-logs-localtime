@@ -17,9 +17,7 @@ import pytz # pip3 install pytz
 # 593
 # >>> 'America/New_York' in all_timezones
 # True
-def convert_ts(line):
-    tz = str(tzlocal.get_localzone())
-    local_tz = pytz.timezone(tz)
+def convert_ts(line, tz):
     utc = pytz.utc
     
     fmt_d = '%Y-%m-%d'
@@ -41,7 +39,7 @@ def convert_ts(line):
         dt.minute,
         dt.second,
         tzinfo=utc)
-    local_dt = utc_dt.astimezone(local_tz).strftime(fmt_dt)
+    local_dt = utc_dt.astimezone(tz).strftime(fmt_dt)
     local_d = datetime.strptime(local_dt, fmt_dt).date().strftime(fmt_d)
     local_t = datetime.strptime(local_dt, fmt_dt).time().strftime(fmt_t)
     digested = re.sub(reg_dt_sub, ' '.join([local_d, local_t]), line)
@@ -50,8 +48,10 @@ def convert_ts(line):
 
 def main():
     try:
+        tz = str(tzlocal.get_localzone())
+        local_tz = pytz.timezone(tz)
         for line in iter(sys.stdin.readline, b''):
-            output = convert_ts(line)
+            output = convert_ts(line, local_tz)
             print(output, end='', flush=True)
     
     except KeyboardInterrupt:
